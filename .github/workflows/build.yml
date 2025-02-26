@@ -22,7 +22,7 @@ jobs:
 
       - name: Set up attic
         run: |
-          nix-env -iA attic-client
+          nix-env -iA nixos.attic-client
           attic login default "$ATTIC_URL" "$ATTIC_TOKEN"
           attic use default
 
