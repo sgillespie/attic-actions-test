@@ -27,7 +27,7 @@ jobs:
           attic use default
 
       - name: build hello
-        run: nix build
-
-      - name: Publish artifacts
-        run: attic push default result
+        run: |
+          attic watch-store default:default &
+          nix build
+          sleep 10
