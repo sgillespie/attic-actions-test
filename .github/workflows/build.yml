@@ -28,3 +28,6 @@ jobs:
 
       - name: build hello
         run: nix build
+
+      - name: Publish artifacts
+        run: attic push default result
