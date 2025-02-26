@@ -30,4 +30,4 @@ jobs:
         run: |
           attic watch-store default:default &
           nix build
-          sleep 10
+          sleep 30
