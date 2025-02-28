@@ -26,6 +26,8 @@ jobs:
       - name: Set up attic
         shell: sudo bash -e {0}
         run: |
+          set -x
+
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 
