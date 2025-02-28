@@ -20,14 +20,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            post-build-hook = ${{ runner.temp }}/post-build.sh
 
       - name: Set up attic
         run: |
-          # Install Attic client
-          nix-env -i -f '<nixpkgs>' -A attic-client
-          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
-          attic use iog:midnight
-
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
           #!/bin/sh
@@ -40,9 +37,16 @@ jobs:
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
 
-          # Add it to the nix config
-          mkdir -p $HOME/.config/nix
-          echo "post-build-hook = ${{ runner.temp }}/post-build.sh" >> $HOME/.config/nix/nix.config
+          # Install Attic client
+          nix-env \
+            --install \
+            --option post-build-hook "" # The script would fail without attic
+            --file '<nixpkgs>' \
+            --attr attic-client
+          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
+          attic use iog:midnight
+
+
 
       - name: build hello
         run: |
