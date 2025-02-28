@@ -39,6 +39,10 @@ jobs:
           #!/bin/sh
           set -eufx
 
+          # TODO: REMOVEME
+          whoami
+          find $HOME/.config
+
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 
