@@ -25,8 +25,8 @@ jobs:
         run: |
           # Install Attic client
           nix-env -i -f '<nixpkgs>' -A attic-client
-          attic login default "$ATTIC_URL" "$ATTIC_TOKEN"
-          attic use default
+          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
+          attic use iog:midnight
 
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
