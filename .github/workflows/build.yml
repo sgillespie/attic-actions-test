@@ -40,7 +40,7 @@ jobs:
           # Install Attic client
           nix-env \
             --install \
-            --option post-build-hook "" # The script would fail without attic
+            --option post-build-hook "" # The script would fail without attic \
             --file '<nixpkgs>' \
             --attr attic-client
           attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
