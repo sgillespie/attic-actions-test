@@ -41,7 +41,7 @@ jobs:
 
           # TODO: REMOVEME
           whoami
-          find $HOME/.config
+          find $XDG_CONFIG_HOME
 
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
@@ -66,7 +66,7 @@ jobs:
 
           # TODO: REMOVEME
           whoami
-          find $HOME/.config
+          find $XDG_CONFIG_HOME
 
       - name: build hello
         run: |
