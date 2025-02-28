@@ -33,6 +33,10 @@ jobs:
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 
+          echo "Logging into attic cache"
+          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
+          attic use iog:midnight
+
           echo "Uploading paths" $OUT_PATHS
           exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
           EOF
@@ -46,10 +50,6 @@ jobs:
             --option post-build-hook "" \
             --file '<nixpkgs>' \
             --attr attic-client
-          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
-          attic use iog:midnight
-
-
 
       - name: build hello
         run: |
