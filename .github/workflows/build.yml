@@ -25,9 +25,6 @@ jobs:
 
       - name: Set up attic
         run: |
-          # TODO: REMOVEME
-          whoami
-
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
           #!/bin/sh
@@ -44,7 +41,7 @@ jobs:
           chmod +x "${{ runner.temp }}/post-build.sh"
 
           # Install Attic client
-          nix-env \
+          sudo nix-env \
             --install \
             --option post-build-hook "" \
             --file '<nixpkgs>' \
