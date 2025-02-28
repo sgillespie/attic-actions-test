@@ -24,7 +24,11 @@ jobs:
             post-build-hook = ${{ runner.temp }}/post-build.sh
 
       - name: Set up attic
+        shell: sudo bash -e {0}
         run: |
+          # Add nix executables to PATH
+          export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
           #!/bin/sh
@@ -41,15 +45,15 @@ jobs:
           chmod +x "${{ runner.temp }}/post-build.sh"
 
           # Install Attic client
-          sudo nix-env \
+          nix-env \
             --install \
             --option post-build-hook "" \
             --file '<nixpkgs>' \
             --attr attic-client
 
-          echo "Logging into attic cache"
-          sudo attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
-          sudo attic use iog:midnight
+          # Log into attic
+          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
+          attic use iog:midnight
 
       - name: build hello
         run: |
