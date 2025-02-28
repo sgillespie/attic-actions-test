@@ -25,6 +25,11 @@ jobs:
 
       - name: Set up attic
         run: |
+          # Install Attic client
+          nix-env -i -f '<nixpkgs>' -A attic-client
+          attic login default "$ATTIC_URL" "$ATTIC_TOKEN"
+          attic use default
+
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
           #!/bin/sh
@@ -36,11 +41,6 @@ jobs:
 
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
-
-          # Install Attic client
-          nix-env -i -f '<nixpkgs>' -A attic-client
-          attic login default "$ATTIC_URL" "$ATTIC_TOKEN"
-          attic use default
 
       - name: build hello
         run: |
