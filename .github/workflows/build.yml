@@ -42,7 +42,7 @@ jobs:
 
           # Add it to the nix config
           mkdir -p $HOME/.config/nix
-          echo "post-build-hook = ${{ runner.temp }}/post-build.sh" >> $HOME/.config/nix
+          echo "post-build-hook = ${{ runner.temp }}/post-build.sh" >> $HOME/.config/nix/nix.config
 
       - name: build hello
         run: |
