@@ -57,7 +57,7 @@ jobs:
             --attr attic-client
 
           # Log into attic
-          attic login iog "$ATTIC_URL" "$ATTIC_TOKEN"
+          attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use iog:midnight
 
       - name: build hello
