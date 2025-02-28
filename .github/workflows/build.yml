@@ -64,6 +64,10 @@ jobs:
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use iog:midnight
 
+          # TODO: REMOVEME
+          whoami
+          find $HOME/.config
+
       - name: build hello
         run: |
           nix build -L .\#
