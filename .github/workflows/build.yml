@@ -30,6 +30,9 @@ jobs:
           #!/bin/sh
           set -eufx
 
+          # Add nix executables to PATH
+          export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+
           echo "Uploading paths" $OUT_PATHS
           exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
           EOF
