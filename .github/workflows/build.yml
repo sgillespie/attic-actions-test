@@ -41,7 +41,7 @@ jobs:
           chmod +x "${{ runner.temp }}/post-build.sh"
 
           # Add it to the nix config
-          echo "post-build-hook = ${{ runner.temp }}/post-build.sh" >> /etx/nix/nix.conf
+          echo "post-build-hook = ${{ runner.temp }}/post-build.sh" >> /etc/nix/nix.conf
 
       - name: build hello
         run: |
