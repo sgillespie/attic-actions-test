@@ -26,7 +26,7 @@ jobs:
       - name: Debug environment
         run: |
           set -x
-          env
+          env | sort
 
       - name: Set up attic
         shell: sudo bash -e {0}
