@@ -7,6 +7,7 @@ on:
 env:
   ATTIC_URL: ${{ secrets.ATTIC_URL }}
   ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+  ATTIC_CACHE: ${{ secrets.ATTIC_CACHE }}
 
 jobs:
   build:
@@ -19,15 +20,27 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          post-build-hook: ${{ runner.temp }}/post-build.sh
 
       - name: Set up attic
         run: |
+          # Create the post-build script
+          cat <<EOF > "${{ runner.temp }}/post-build.sh"
+          #!/bin/sh
+          set -eufx
+
+          echo "Uploading paths" $OUT_PATHS
+          exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
+          EOF
+
+          # Make it executable
+          chmod +x "${{ runner.temp }}/post-build.sh"
+
+          # Install Attic client
           nix-env -i -f '<nixpkgs>' -A attic-client
           attic login default "$ATTIC_URL" "$ATTIC_TOKEN"
           attic use default
 
       - name: build hello
         run: |
-          attic watch-store default:default &
-          nix build
-          sleep 30
+          nix build -L .\#
