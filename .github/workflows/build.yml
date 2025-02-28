@@ -24,7 +24,11 @@ jobs:
             post-build-hook = ${{ runner.temp }}/post-build.sh
 
       - name: Set up attic
+        shell: sudo bash -e {0}
         run: |
+          # TODO: REMOVEME
+          whoami
+
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
           #!/bin/sh
