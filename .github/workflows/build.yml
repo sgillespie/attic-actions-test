@@ -23,18 +23,16 @@ jobs:
           extra_nix_config: |
             post-build-hook = ${{ runner.temp }}/post-build.sh
 
-      - name: Debug environment
-        run: |
-          set -x
-          env | sort
-
       - name: Set up attic
         shell: sudo bash -e {0}
         run: |
           set -x
 
+          env | sort
+
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+          export NIX_PATH=nixpkgs=channel:nixos-unstable
 
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
