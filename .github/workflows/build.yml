@@ -23,6 +23,11 @@ jobs:
           extra_nix_config: |
             post-build-hook = ${{ runner.temp }}/post-build.sh
 
+      - name: Debug environment
+        run: |
+          set -x
+          env
+
       - name: Set up attic
         shell: sudo bash -e {0}
         run: |
