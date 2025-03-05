@@ -44,6 +44,8 @@ jobs:
           fi
           EOF
 
+          cat "${{ runner.temp }}/post-build.sh"
+
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
 
