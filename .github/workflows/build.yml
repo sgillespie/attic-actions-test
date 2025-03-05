@@ -33,7 +33,7 @@ jobs:
           # Create the post-build script
           cat <<EOF > "${{ runner.temp }}/post-build.sh"
           #!/bin/sh
-          set -eufx
+          set -euf
 
           # Add nix executables to PATH
           export PATH="\$PATH:/nix/var/nix/profiles/default/bin"
@@ -55,7 +55,8 @@ jobs:
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
 
-          # Install Attic client
+          # Install Attic client. Note that we we unset the post-build hook, because it
+          # would fail without attic
           nix-env \
             --install \
             --option post-build-hook "" \
@@ -64,10 +65,7 @@ jobs:
 
           # Log into attic
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
-          attic use iog:midnight
-
-          env | sort
-          cat $XDG_CONFIG_HOME/attic/config.toml
+          attic use "${{ secrets.ATTIC_CACHE }}"
 
       - name: build hello
         run: |
