@@ -63,7 +63,7 @@ jobs:
           attic use iog:midnight
 
           env | sort
-          cat $XDG_CONFIG_HOME/.config/attic/config.toml
+          cat $XDG_CONFIG_HOME/attic/config.toml
 
       - name: build hello
         run: |
