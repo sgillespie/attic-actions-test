@@ -38,8 +38,8 @@ jobs:
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 
-          if [ -n "${OUT_PATHS:-}" ]; then
-            echo "Uploading paths" "$OUT_PATHS"
+          if [ -n "\${OUT_PATHS:-}" ]; then
+            echo "Uploading paths" "\$OUT_PATHS"
             exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
           fi
           EOF
