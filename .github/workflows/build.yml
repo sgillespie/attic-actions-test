@@ -24,7 +24,7 @@ jobs:
             post-build-hook = ${{ runner.temp }}/post-build.sh
 
       - name: Set up attic
-        shell: sudo bash -e {0}
+        # shell: sudo bash -e {0}
         run: |
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
@@ -57,10 +57,6 @@ jobs:
           # Log into attic
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use iog:midnight
-
-          # TODO: REMOVEME
-          whoami
-          cat $XDG_CONFIG_HOME/attic/config.toml
 
       - name: build hello
         run: |
