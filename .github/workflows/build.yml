@@ -61,6 +61,7 @@ jobs:
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use iog:midnight
 
+          env | sort
           cat $HOME/.config/attic/config.toml
 
       - name: build hello
