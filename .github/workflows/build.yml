@@ -59,6 +59,7 @@ jobs:
           # would fail without attic
           nix-env \
             --install \
+            --profile default \
             --option post-build-hook "" \
             --file '<nixpkgs>' \
             --attr attic-client
