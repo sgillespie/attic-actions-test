@@ -39,6 +39,7 @@ jobs:
           export PATH="\$PATH:/nix/var/nix/profiles/default/bin"
 
           if [ -n "\${OUT_PATHS:-}" ]; then
+            env | sort
             cat \$HOME/.config/attic/config.toml
             cat /etc/nix/nix.conf
 
@@ -62,7 +63,7 @@ jobs:
           attic use iog:midnight
 
           env | sort
-          cat $HOME/.config/attic/config.toml
+          cat $XDG_CONFIG_HOME/.config/attic/config.toml
 
       - name: build hello
         run: |
