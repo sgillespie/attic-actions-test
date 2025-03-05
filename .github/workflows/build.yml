@@ -40,11 +40,9 @@ jobs:
 
           if [ -n "\${OUT_PATHS:-}" ]; then
             echo "Uploading paths" "\$OUT_PATHS"
-            exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
+            exec attic push "${{ secrets.ATTIC_CACHE }}" \$OUT_PATHS
           fi
           EOF
-
-          cat "${{ runner.temp }}/post-build.sh"
 
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
