@@ -36,10 +36,10 @@ jobs:
           set -eufx
 
           # Add nix executables to PATH
-          export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+          export PATH="\$PATH:/nix/var/nix/profiles/default/bin"
 
           if [ -n "\${OUT_PATHS:-}" ]; then
-            cat $HOME/.config/attic/config.toml
+            cat \$HOME/.config/attic/config.toml
             cat /etc/nix/nix.conf
 
             echo "Uploading paths" "\$OUT_PATHS"
@@ -60,6 +60,8 @@ jobs:
           # Log into attic
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use iog:midnight
+
+          cat $HOME/.config/attic/config.toml
 
       - name: build hello
         run: |
