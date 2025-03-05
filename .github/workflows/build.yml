@@ -63,6 +63,8 @@ jobs:
             --file '<nixpkgs>' \
             --attr attic-client
 
+          which attic
+
           # Log into attic
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use "${{ secrets.ATTIC_CACHE }}"
