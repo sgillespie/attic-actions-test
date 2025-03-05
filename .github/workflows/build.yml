@@ -39,11 +39,11 @@ jobs:
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 
           if [ -n "\${OUT_PATHS:-}" ]; then
-            cat $HOME/.config/config.toml
+            cat $HOME/.config/attic/config.toml
             cat /etc/nix/nix.conf
 
             echo "Uploading paths" "\$OUT_PATHS"
-            exec attic push "${{ secrets.ATTIC_CACHE }}" \$OUT_PATHS
+            exec attic push iog:midnight \$OUT_PATHS
           fi
           EOF
 
