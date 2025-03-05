@@ -26,10 +26,6 @@ jobs:
       - name: Set up attic
         shell: sudo bash -e {0}
         run: |
-          set -x
-
-          env | sort
-
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
           export NIX_PATH=nixpkgs=channel:nixos-unstable
@@ -39,15 +35,13 @@ jobs:
           #!/bin/sh
           set -eufx
 
-          # TODO: REMOVEME
-          whoami
-          cat $XDG_CONFIG_HOME/attic/config.toml
-
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
 
-          echo "Uploading paths" $OUT_PATHS
-          exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
+          if [[ -n "${OUT_PATHS:-}" ]]; then
+            echo "Uploading paths" "$OUT_PATHS"
+            exec attic push "${{ secrets.ATTIC_CACHE }}" $OUT_PATHS
+          fi
           EOF
 
           # Make it executable
