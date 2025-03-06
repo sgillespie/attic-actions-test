@@ -39,10 +39,14 @@ jobs:
 
           # Add nix executables to PATH
           export PATH="\$PATH:/nix/var/nix/profiles/default/bin"
+          # Get attic in the PATH
+          nix-env --switch-profile /home/runner/.nix-profile
           # Force attic to use the same config file from the post-build hook as it does
           # outside of it. Note that $XDG_CONFIG_HOME gets expanded when we write this
           # file, NOT when its executed.
           export XDG_CONFIG_HOME=$XDG_CONFIG_HOME
+
+          echo $PATH
 
           if [ -n "\${OUT_PATHS:-}" ]; then
             env | sort
