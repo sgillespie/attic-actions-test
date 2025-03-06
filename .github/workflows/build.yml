@@ -26,6 +26,7 @@ jobs:
 
       - name: Debug paths
         run: |
+          env | sort
           echo "$GITHUB_ENV"
           echo "$GITHUB_PATH"
           cat "$GITHUB_ENV"
