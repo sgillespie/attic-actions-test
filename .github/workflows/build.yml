@@ -28,7 +28,9 @@ jobs:
         shell: sudo --preserve-env bash -e {0}
         run: |
           # Add nix executables to PATH
-          # export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+          export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+          cat "$GITHUB_ENV"
+          cat "$GITHUB_PATH"
 
           # Install Attic client. Note that we we unset the post-build hook, because it
           # would fail without attic
