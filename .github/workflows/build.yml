@@ -24,10 +24,8 @@ jobs:
             post-build-hook = ${{ runner.temp }}/post-build.sh
 
       - name: Set up attic
-        # shell: sudo bash -e {0}
+        shell: sudo bash -e {0}
         run: |
-          set -x
-
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
           export NIX_PATH=nixpkgs=channel:nixos-unstable
@@ -39,29 +37,19 @@ jobs:
 
           # Add nix executables to PATH
           export PATH="\$PATH:/nix/var/nix/profiles/default/bin"
-          # Get attic in the PATH
-          nix-env --switch-profile /home/runner/.nix-profile
           # Force attic to use the same config file from the post-build hook as it does
           # outside of it. Note that $XDG_CONFIG_HOME gets expanded when we write this
           # file, NOT when its executed.
           export XDG_CONFIG_HOME=$XDG_CONFIG_HOME
 
-          echo $PATH
-
           if [ -n "\${OUT_PATHS:-}" ]; then
-            env | sort
-            cat \$XDG_CONFIG_HOME/attic/config.toml
-            cat /etc/nix/nix.conf
-
             echo "Uploading paths" "\$OUT_PATHS"
-            exec attic push iog:midnight \$OUT_PATHS
+            exec attic push "${{ secrets.ATTIC_CACHE }}" \$OUT_PATHS
           fi
           EOF
 
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
-
-          env | sort
 
           # Install Attic client. Note that we we unset the post-build hook, because it
           # would fail without attic
@@ -70,13 +58,6 @@ jobs:
             --option post-build-hook "" \
             --file '<nixpkgs>' \
             --attr attic-client
-
-          echo $PATH
-          env | sort
-          ls -l /home/runner/.nix-profile
-          ls -l /home/runner/.local/state/nix/profiles/profile
-          find /nix/var/nix/profiles -ls
-          which attic
 
           # Log into attic
           attic login iog "${{ secrets.ATTIC_URL }}" "${{ secrets.ATTIC_TOKEN }}"
