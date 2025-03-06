@@ -29,6 +29,8 @@ jobs:
         run: |
           # Add nix executables to PATH
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
+          echo "$GITHUB_ENV"
+          echo "$GITHUB_PATH"
           cat "$GITHUB_ENV"
           cat "$GITHUB_PATH"
 
