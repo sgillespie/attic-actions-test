@@ -57,7 +57,7 @@ jobs:
           # Make it executable
           chmod +x "${{ runner.temp }}/post-build.sh"
 
-          nix-env --switch-profile /nix/var/nix/profiles/default
+          env | sort
 
           # Install Attic client. Note that we we unset the post-build hook, because it
           # would fail without attic
