@@ -68,6 +68,8 @@ jobs:
             --attr attic-client
 
           echo $PATH
+          env | sort
+          ls -l /home/runner/.nix-profile
           find /nix/var/nix/profiles -ls
           which attic
 
