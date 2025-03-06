@@ -22,12 +22,8 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up attic
-        shell: sudo bash -e {0}
+        shell: sudo bash --preserve-env -e {0}
         run: |
-          # Add nix executables to PATH
-          export PATH="$PATH:/nix/var/nix/profiles/default/bin"
-          export NIX_PATH=nixpkgs=channel:nixos-unstable
-
           # Install Attic client. Note that we we unset the post-build hook, because it
           # would fail without attic
           nix-env \
