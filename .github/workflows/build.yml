@@ -25,6 +25,7 @@ jobs:
         run: |
           set -x
           sudo bash -c 'echo "post-build-hook = ${{ runner.temp }}/post-build.sh" >> /etc/nix/nix.conf'
+          sudo systemctl restart nix-daemon.service
 
       - name: Set up attic
         shell: sudo bash -e {0}
