@@ -66,6 +66,7 @@ jobs:
             --file '<nixpkgs>' \
             --attr attic-client
 
+          ls /nix/var/nix/profiles/default/bin
           which attic
 
           # Log into attic
