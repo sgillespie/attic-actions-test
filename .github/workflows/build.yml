@@ -36,6 +36,7 @@ jobs:
         shell: sudo --preserve-env bash -e {0}
         run: |
           # Add nix executables to PATH
+          env | sort
           export PATH="$PATH:/nix/var/nix/profiles/default/bin"
           echo "$GITHUB_ENV"
           echo "$GITHUB_PATH"
