@@ -70,6 +70,7 @@ jobs:
           echo $PATH
           env | sort
           ls -l /home/runner/.nix-profile
+          ls -l /home/runner/.local/state/nix/profiles/profile
           find /nix/var/nix/profiles -ls
           which attic
 
