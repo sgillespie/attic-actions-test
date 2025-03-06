@@ -24,6 +24,13 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Debug paths
+        run: |
+          echo "$GITHUB_ENV"
+          echo "$GITHUB_PATH"
+          cat "$GITHUB_ENV"
+          cat "$GITHUB_PATH"
+
       - name: Set up attic
         shell: sudo --preserve-env bash -e {0}
         run: |
