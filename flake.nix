@@ -9,7 +9,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-        packages.default = pkgs.pkgsCross.musl64.hello-cpp;
+        packages.default = pkgs.pkgsCross.musl64.hello-go;
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [ attic-client attic-server ];
