@@ -9,7 +9,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-        packages.default = pkgs.pkgsCross.musl64.cowsay;
+        packages.default = pkgs.pkgsCross.aarch64-multiplatform-musl.cowsay;
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [ attic-client attic-server ];
