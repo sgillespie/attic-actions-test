@@ -11,10 +11,16 @@ env:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: 
+          - ubuntu-latest
+          - macos-latest
+
     env:
       NIX_PATH: "nixpkgs=channel:nixos-unstable"
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +37,6 @@ jobs:
           cache: ${{ secrets.ATTIC_CACHE }}
           access_token: ${{ secrets.ATTIC_TOKEN }}
 
-      - name: build hello
+      - name: build package
         run: |
-          nix build -L .\#
+          nix build --impure -L .\#

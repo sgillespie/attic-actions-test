@@ -9,7 +9,9 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-        packages.default = pkgs.pkgsCross.musl64.hey;
+        # Note: Only works with --impure
+        packages.default = 
+          pkgs.writeText "example" (builtins.toString builtins.currentTime);
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [ attic-client attic-server ];
